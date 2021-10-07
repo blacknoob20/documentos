@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=PLSQLDeveloper
+Comment=PL/SQL Developer 8
+Categories=Development;IDE;
+Exec=wine "C:\\Program Files\\PLSQL Developer\\plsqldev.exe"
+Icon=/opt/oracle/client_12_2/sqldeveloper/PLSQL-Developer.png
+#Icon='/home/cristhian/.wine/drive_c/Program Files/PLSQL Developer/PLSQL-Developer.png'
+Terminal=false
+Type=Application
+StartupNotify=true

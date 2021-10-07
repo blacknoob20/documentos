@@ -25,7 +25,9 @@ services:
     mem_limit: 64m
     volumes:
       - $PWD/:/var/www/html/
-      - $PWD/../tmp/sgpplus/:/tmp/sgpplus/
+      - $PWD/../tmp/firmados/:/tmp/
+      #- $PWD/../tmp/firmados/:/tmp/firmados/
+      #- $PWD/../tmp/sgpplus/:/tmp/sgpplus/
       - $PWD/../php-5.6-fpm/usr/local/etc/php/:/usr/local/etc/php/
       - $PWD/../php-5.6-fpm/opt/oracle/client/11.2/network/admin/:/opt/oracle/client/11.2/network/admin/
       - $PWD/../php-5.6-fpm/var/log/sgpplus/:/var/log/sgpplus/
@@ -49,6 +51,29 @@ services:
     ports:
       - '80:80'
       - '443:443'
+    networks:
+      - net
+  ftpserver:
+    depends_on:
+      - sgp
+      - php
+    container_name: ftp
+    image: avenus/vsftpd-alpine
+    cpuset: '1'
+    mem_limit: 8m
+    volumes:
+      - $PWD/../ftp/home/ftpuser/docAdjuntos/:/home/ftpuser/docAdjuntos/
+      - $PWD/../ftp/var/log/:/var/log/
+    ports:
+      - '21:21'
+      - '21100-21110:21100-21110'
+    environment:
+      - TZ=America/Guayaquil
+      - FTP_USER=ftpuser
+      - FTP_PASS=1234
+      - PASV_ADDRESS=5.6.7.8
+      - PASV_MIN=21100
+      - PASV_MAX=21110
     networks:
       - net
   wildfly:
